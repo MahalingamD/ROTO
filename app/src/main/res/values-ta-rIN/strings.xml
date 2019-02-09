@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_mobile_number">மொபைல் எண்</string>
+    <string name="label_submit">சமர்ப்பிக்க</string>
+    <string name="label_home">முகப்பு</string>
+    <string name="label_language">மொழி</string>
+    <string name="label_about">குறித்து</string>
+    <string name="label_tough">வலிமை</string>
+    <string name="label_state">மாநிலம்</string>
+    <string name="label_city">நகரம்</string>
+    <string name="label_ok">" சரி"</string>
+    <string name="label_select_language">உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="alert_message_check_internet">உங்கள் இணைய இணைப்பு சரிபார்க்கவும்</string>
+    <string name="app_exit_toast">வெளியேற மறுபடியும் அழுத்தவும்!</string>
+    <string name="label_call_for_detail">விவரம் அழைப்பு</string>
+    <string name="call_for_details">விவரம் அழைப்பு</string>
+    <string name="label_error_valid_mobile_number">" சரியான கைபேசி எண்ணை தரவும்"</string>
+    <string name="label_erroe_valid_otp">Valid OTP ஐ உள்ளிடுக</string>
+    <string name="msg_app_update">புதுப்பிக்க</string>
+    <string name="msg_app_install" translatable="false">நிறுவ</string>
+    <string name="label_versatile" translatable="false">" பல துறைகளிலும் திறமையுடைய"</string>
+    <string name="label_model">மாதிரிகள்</string>
+    <string name="label_version">பதிப்பு</string>
+</resources>

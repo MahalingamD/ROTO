@@ -1,0 +1,263 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "6651b23b3aca1fd726fe3d3ea65a86ff",
+    "entities": [
+      {
+        "tableName": "language",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`LanguageId` TEXT NOT NULL, `LanguageName` TEXT, `IsActive` INTEGER NOT NULL, `IsSelect` INTEGER NOT NULL, PRIMARY KEY(`LanguageId`))",
+        "fields": [
+          {
+            "fieldPath": "Lan_id",
+            "columnName": "LanguageId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Lan_Name",
+            "columnName": "LanguageName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "IsActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IsSelect",
+            "columnName": "IsSelect",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "LanguageId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Country",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `alphaCode_one` TEXT, `alphaCode_two` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "alphaCode_one",
+            "columnName": "alphaCode_one",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "alphaCode_two",
+            "columnName": "alphaCode_two",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "product",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ProductId` TEXT NOT NULL, `ProductName` TEXT, `ProdImageUrl` TEXT, `LanguageId` TEXT, `IsActive` TEXT, `LastUpdate` TEXT, `ProductCount` TEXT, `ProductLocalPath` TEXT, `IsSelect` INTEGER NOT NULL, PRIMARY KEY(`ProductId`))",
+        "fields": [
+          {
+            "fieldPath": "ProductId",
+            "columnName": "ProductId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ProductName",
+            "columnName": "ProductName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ProdImageUrl",
+            "columnName": "ProdImageUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LanguageId",
+            "columnName": "LanguageId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "IsActive",
+            "columnName": "IsActive",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LastUpdate",
+            "columnName": "LastUpdate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ProductCount",
+            "columnName": "ProductCount",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ProductLocalPath",
+            "columnName": "ProductLocalPath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "IsSelect",
+            "columnName": "IsSelect",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ProductId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "bladetype",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Sno` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ProductId` TEXT, `BladeTypeId` TEXT, `BladeTypeName` TEXT, `IsActive` TEXT, `BladeImage1` TEXT, `BladeImage2` TEXT, `BladeImage3` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "Sno",
+            "columnName": "Sno",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ProductId",
+            "columnName": "ProductId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BladeTypeId",
+            "columnName": "BladeTypeId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BladeTypeName",
+            "columnName": "BladeTypeName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "IsActive",
+            "columnName": "IsActive",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BladeImage1",
+            "columnName": "BladeImage1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BladeImage2",
+            "columnName": "BladeImage2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BladeImage3",
+            "columnName": "BladeImage3",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Sno"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "bladedescription",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Sno` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `BladeTypeId` TEXT, `IsActive` TEXT, `BladeDesc` TEXT, `RotogroValues` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "Sno",
+            "columnName": "Sno",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "BladeTypeId",
+            "columnName": "BladeTypeId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "IsActive",
+            "columnName": "IsActive",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BladeDesc",
+            "columnName": "BladeDesc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "RotogroValues",
+            "columnName": "RotogroValues",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Sno"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6651b23b3aca1fd726fe3d3ea65a86ff\")"
+    ]
+  }
+}

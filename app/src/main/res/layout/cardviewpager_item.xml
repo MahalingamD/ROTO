@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_30"
+    app:cardCornerRadius="@dimen/margin_20"
+    app:cardElevation="@dimen/margin_15">
+
+    <LinearLayout
+        android:id="@+id/inflate_product_detail_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/inflate_product_name_TXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/font_20"
+            android:fontFamily="@font/futura_bold"
+            android:gravity="center"
+            android:text="ROTOGRO BLADE"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_42" />
+
+        <ImageView
+            android:id="@+id/inflate_product_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/product_item_height"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin_10"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo" />
+
+
+        <TextView
+            android:id="@+id/inflate_product_rate_TXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/futura_book"
+            android:gravity="center"
+            android:text="RS.1500"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_30" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inflate_item_current_position_TXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:ellipsize="end"
+                android:fontFamily="@font/futura_light"
+                android:gravity="center_horizontal"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_20" />
+
+            <TextView
+                android:id="@+id/inflate_item_total_position_TXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:ellipsize="end"
+                android:fontFamily="@font/futura_light"
+                android:gravity="center_horizontal"
+                android:text="/3"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/font_18" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

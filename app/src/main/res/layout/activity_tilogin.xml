@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.login.TILoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/activity_login_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/splash_image_width"
+                        android:layout_height="@dimen/splash_image_height"
+                        android:layout_gravity="center"
+                        android:src="@drawable/logo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_40"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/language_recycrer_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/margin_16"
+                        android:paddingRight="@dimen/margin_16" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_20"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/login_mobile_TXTINPUT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/login_mobile_EDT"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/label_mobile_number"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLength="@integer/int_ten" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:id="@+id/otp_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:visibility="gone"
+                        android:weightSum="@integer/int_two">
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/login_otp_TXTINPUT"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/int_one"
+                            android:visibility="visible">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/login_otp_EDT"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/label_enter_your_otp"
+                                android:inputType="number" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:layout_weight="@integer/int_one"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/activity_countdown_TXT"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.5"
+                                android:gravity="center"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+
+                            <Button
+                                android:id="@+id/activity_resend_BTN"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="@integer/int_one"
+                                android:background="@drawable/bg_rounded_corner_next_btn"
+                                android:padding="@dimen/margin_5"
+                                android:text="@string/label_resend_otp"
+                                android:textColor="@color/white"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/login_get_otp_BUT"
+                        android:layout_width="@dimen/login_button_width"
+                        android:layout_height="@dimen/login_button_height"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@drawable/circle_green_design"
+                        android:text="@string/label_get_otp"
+                        android:textColor="@color/white"
+                        android:visibility="visible" />
+
+
+                    <Button
+                        android:id="@+id/login_submit_BUT"
+                        android:layout_width="@dimen/login_button_width"
+                        android:layout_height="@dimen/login_button_height"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@drawable/circle_green_design"
+                        android:text="@string/label_submit"
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_common_LAY_inflate_no_permission"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/activity_main_FRG_no_permission"
+                    layout="@layout/layout_inflate_no_permission" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

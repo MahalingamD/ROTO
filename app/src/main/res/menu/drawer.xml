@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_item_home"
+            android:checked="true"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/label_home" />
+        <item
+            android:id="@+id/nav_item_language"
+            android:checked="true"
+            android:icon="@drawable/ic_english"
+            android:title="@string/label_language" />
+        <item
+            android:id="@+id/nav_item_about"
+            android:checked="true"
+            android:icon="@drawable/ic_settings_black"
+            android:title="@string/label_about" />
+
+    </group>
+
+
+</menu>
+

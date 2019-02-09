@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/inflate_layout_root_lay"
+    android:layout_width="match_parent"
+    android:layout_height="280dp"
+    android:layout_columnWeight="0.5"
+    android:layout_margin="@dimen/margin_5"
+    android:background="@color/white"
+    android:clickable="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/margin_5"
+    app:cardElevation="@dimen/margin_5">
+
+    <LinearLayout
+        android:id="@+id/inflate_layout_root_lay1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/inflate_layout_season_list_img"
+            android:layout_width="@dimen/image_height_180"
+            android:layout_height="@dimen/image_height_180"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/margin_10"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/inflate_layout_Product_name_TXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/futura_bold"
+            android:gravity="center"
+            android:text="BLADES"
+            android:textAllCaps="true"
+            android:textColor="@color/dark_green"
+            android:textSize="@dimen/font_22"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/inflate_layout_Product_Size_TXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/futura_light"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="3 product"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18" />
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

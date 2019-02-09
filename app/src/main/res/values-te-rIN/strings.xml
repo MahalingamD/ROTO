@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_mobile_number">" మొబైల్ నంబర్"</string>
+    <string name="label_submit">సమర్పించండి</string>
+    <string name="label_home">హోం</string>
+    <string name="label_language">భాషా</string>
+    <string name="label_about">గురించి</string>
+    <string name="label_tough">టఫ్</string>
+    <string name="label_state">రాష్ట్రం</string>
+    <string name="label_city">సిటీ</string>
+    <string name="label_ok">అలాగే</string>
+    <string name="label_select_language">మీ భాషను ఎంచుకోండి</string>
+    <string name="alert_message_check_internet">దయచేసి మీ ఇంటర్నెట్ కనెక్షన్ను తనిఖీ చేయండి</string>
+    <string name="app_exit_toast">నిష్క్రమించడానికి మరోసారి నొక్కండి!</string>
+    <string name="label_call_for_detail">వివరాల కోసం కాల్ చేయండి</string>
+    <string name="call_for_details">వివరాల కోసం కాల్ చేయండి</string>
+    <string name="label_error_valid_mobile_number">" చెల్లుబాటు అయ్యే మొబైల్ నంబర్ను నమోదు చేయండి"</string>
+    <string name="label_erroe_valid_otp">చెల్లుబాటు అయ్యే OTP ను ఎంటర్ చెయ్యండి</string>
+    <string name="msg_app_update" translatable="false">నవీకరణ</string>
+    <string name="msg_app_install">ఇన్స్టాల్</string>
+    <string name="label_versatile">బహుముఖ</string>
+    <string name="label_model">మోడల్స్</string>
+    <string name="label_version">వెర్షన్</string>
+</resources>

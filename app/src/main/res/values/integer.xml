@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="int_one">1</integer>
+    <integer name="int_two">2</integer>
+    <integer name="int_three">3</integer>
+    <integer name="int_five">5</integer>
+    <integer name="int_ten">10</integer>
+    <integer name="int_forty">40</integer>
+
+    <integer name="anim_duration_medium">300</integer>
+    <integer name="anim_duration_long">400</integer>
+
+</resources>
