@@ -19,5 +19,7 @@ public class TISplashContract {
       void initActivity();
 
       void appUpdate( VersionDetails versionDetails );
+
+      void termAlert();
    }
 }

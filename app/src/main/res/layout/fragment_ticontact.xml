@@ -19,11 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_10"
-            android:fontFamily="@font/futura_book"
+            android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:padding="@dimen/margin_10"
             android:text="@string/call_for_details"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textSize="@dimen/font_25" />
 
 

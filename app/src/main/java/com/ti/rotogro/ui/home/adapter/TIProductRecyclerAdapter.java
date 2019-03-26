@@ -102,12 +102,6 @@ public class TIProductRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
 
    private void multipleShow( MultipleViewHolder holder, int position, Product aProduct ) {
 
-      Uri uri = null;
-      String aString = aProduct.getProductLocalPath();
-      if( aString != null && !aString.equals( "" ) ) {
-         uri = Uri.fromFile( new File( aString ) );
-         //  loadImageView( myContext, holder.myProductListImg, uri.toString() );
-      }
 
       if( aProduct.getProdImageUrl() == null || aProduct.getProdImageUrl().equals( "" ) ) {
          loadDrawableGlideImage( ContextCompat.getDrawable( myContext, R.drawable.logo ), holder.myProductListImg );
@@ -115,13 +109,14 @@ public class TIProductRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
          loadGlideImage( aProduct.getProdImageUrl(), holder.myProductListImg );
       }
 
-
       holder.myProductName.setText( aProduct.getProductName() );
-      //   holder.myProductSize.setText( String.format( "%s Models", aProduct.getProductCount() ) );
 
-      holder.myProductSize.setText( new StringBuilder().append( aProduct.getProductCount() ).append( " " ).append( myContext.getResources().getString( R.string.label_model ) ).toString() );
+      if( aProduct.getProductCount().equals( "0" ) ) {
+         holder.myProductSize.setText( R.string.label_coming_soon );
+      } else {
+         holder.myProductSize.setText( "" );
+      }
 
-      holder.myProductName.setText( aProduct.getProductName() );
    }
 
    private void loadDrawableGlideImage( Drawable drawable, ImageView myProductListImg ) {
@@ -143,14 +138,20 @@ public class TIProductRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
 
       if( position == 0 ) {
          holder.myProductName.setText( aProduct.getProductName() );
-         holder.myProductSize.setText( new StringBuilder().append( aProduct.getProductCount() ).append( " " ).append( myContext.getResources().getString( R.string.label_model ) ).toString() );
+         holder.myProductSize.setText( "" );
          holder.myRootView.setBackgroundColor( ContextCompat.getColor( myContext, R.color.yellow_green ) );
       } else {
          holder.myProductName.setText( aProduct.getProductName() );
          holder.myProductName.setTextColor( ContextCompat.getColor( myContext, R.color.low_grey ) );
-         holder.myProductSize.setText( aProduct.getProductCount() );
+
+         if( aProduct.getProductCount().equals( "0" ) ) {
+            holder.myProductSize.setText( R.string.label_coming_soon );
+         } else {
+            holder.myProductSize.setText( "" );
+         }
          holder.myRootView.setBackgroundColor( ContextCompat.getColor( myContext, R.color.white ) );
       }
+
 
       loadGlideImage( aProduct.getProdImageUrl(), holder.myProductListImg );
 

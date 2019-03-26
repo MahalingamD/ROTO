@@ -21,4 +21,11 @@
     <string name="label_versatile">బహుముఖ</string>
     <string name="label_model">మోడల్స్</string>
     <string name="label_version">వెర్షన్</string>
+    <string name="label_no_data_found">డేటా కనుగొనబడలేదు</string>
+    <string name="label_nocity">ఈ రాష్ట్రం కోసం సంఖ్య నగరం అందుబాటులో ఉంది</string>
+    <string name="label_get_otp">OTP ను పొందండి</string>
+    <string name="label_enter_your_otp">" మీ OTP ను ఎంటర్ చెయ్యండి"</string>
+    <string name="label_loading">loading</string>
+    <string name="label_welcome">Rotogro కు స్వాగతం</string>
+    <string name="label_coming_soon">త్వరలో</string>
 </resources>

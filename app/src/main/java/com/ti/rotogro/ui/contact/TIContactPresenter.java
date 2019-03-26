@@ -6,9 +6,8 @@ import com.ti.rotogro.base.BasePresenter;
 import com.ti.rotogro.data.db.AppDatabase;
 import com.ti.rotogro.data.db.entity.AddressMaster;
 import com.ti.rotogro.data.db.entity.CityMaster;
+import com.ti.rotogro.data.db.entity.LanguageMaster;
 import com.ti.rotogro.data.db.entity.StateMaster;
-import com.ti.rotogro.model.ContactDetail;
-import com.ti.rotogro.model.State;
 import com.ti.rotogro.service.RetrofitInstance;
 
 import java.util.ArrayList;
@@ -51,19 +50,74 @@ public class TIContactPresenter extends BasePresenter<TIContactContract.View> im
    }
 
    @Override
-   public void getCityValues( String aStateId ) {
+   public void getCityValues( String aStateId, LanguageMaster aLanguage ) {
       List<CityMaster> aCityMasterList = new ArrayList<>();
 
-      aCityMasterList = mAppDatabase.cityMasterDao().getAllCity( aStateId, "1" );
+      switch( aLanguage.Lan_id ) {
+         case "1":
+            if( aStateId.equals( "4" ) ) {
+               aCityMasterList = mAppDatabase.cityMasterDao().getAllSelectedCity( aStateId, aLanguage.Lan_id, "1" );
+            } else {
+               aCityMasterList = mAppDatabase.cityMasterDao().getAllSelectedCity( aStateId, "2", "1" );
+            }
+            break;
+         case "3":
+            if( aStateId.equals( "3" ) || aStateId.equals( "5" ) ) {
+               aCityMasterList = mAppDatabase.cityMasterDao().getAllSelectedCity( aStateId, aLanguage.Lan_id, "1" );
+            } else {
+               aCityMasterList = mAppDatabase.cityMasterDao().getAllSelectedCity( aStateId, "2", "1" );
+            }
+            break;
+
+         case "4":
+            if( aStateId.equals( "2" ) ) {
+               aCityMasterList = mAppDatabase.cityMasterDao().getAllSelectedCity( aStateId, aLanguage.Lan_id, "1" );
+            } else {
+               aCityMasterList = mAppDatabase.cityMasterDao().getAllSelectedCity( aStateId, "2", "1" );
+            }
+            break;
+         default:
+            aCityMasterList = mAppDatabase.cityMasterDao().getAllSelectedCity( aStateId, "2", "1" );
+            break;
+      }
 
       myTiContractView.setCitySpinner( aCityMasterList );
    }
 
    @Override
-   public void getContactValues( String aStateId, String aCityId ) {
+   public void getContactValues( String aStateId, String aCityId, LanguageMaster aLanguage ) {
       List<AddressMaster> aAddressMasterList = new ArrayList<>();
 
-      aAddressMasterList = mAppDatabase.addressMasterDao().getAllAddress( aStateId, aCityId, "1" );
+
+      switch( aLanguage.Lan_id ) {
+         case "1":
+            if( aStateId.equals( "4" ) ) {
+               aAddressMasterList = mAppDatabase.addressMasterDao().getAllSelectedAddress( aStateId, aCityId, aLanguage.Lan_id, "1" );
+            } else {
+               aAddressMasterList = mAppDatabase.addressMasterDao().getAllSelectedAddress( aStateId, aCityId, "2", "1" );
+            }
+            break;
+         case "3":
+            if( aStateId.equals( "3" ) || aStateId.equals( "5" ) ) {
+               aAddressMasterList = mAppDatabase.addressMasterDao().getAllSelectedAddress( aStateId, aCityId, aLanguage.Lan_id, "1" );
+            } else {
+               aAddressMasterList = mAppDatabase.addressMasterDao().getAllSelectedAddress( aStateId, aCityId, "2", "1" );
+            }
+            break;
+
+         case "4":
+            if( aStateId.equals( "2" ) ) {
+               aAddressMasterList = mAppDatabase.addressMasterDao().getAllSelectedAddress( aStateId, aCityId, aLanguage.Lan_id, "1" );
+            } else {
+               aAddressMasterList = mAppDatabase.addressMasterDao().getAllSelectedAddress( aStateId, aCityId, "2", "1" );
+            }
+            break;
+         default:
+            aAddressMasterList = mAppDatabase.addressMasterDao().getAllSelectedAddress( aStateId, aCityId, aLanguage.Lan_id, "1" );
+            break;
+      }
+
+      //  aAddressMasterList = mAppDatabase.addressMasterDao().getAllAddress( aStateId, aCityId, "1" );
       myTiContractView.setRecyclerAdapter( aAddressMasterList );
    }
 

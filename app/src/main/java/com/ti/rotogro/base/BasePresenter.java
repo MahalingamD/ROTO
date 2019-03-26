@@ -8,10 +8,10 @@ import android.support.annotation.NonNull;
 
 public abstract class BasePresenter<V extends BaseView> {
 
-    protected V mView;
+    private V mView;
 
 
-    public BasePresenter() {
+    protected BasePresenter() {
 
     }
     public final void attachView(@NonNull V view) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="label_mobile_number">மொபைல் எண்</string>
-    <string name="label_submit">சமர்ப்பிக்க</string>
+    <string name="label_submit">சமர்ப்பி</string>
     <string name="label_home">முகப்பு</string>
     <string name="label_language">மொழி</string>
     <string name="label_about">குறித்து</string>
@@ -21,4 +21,11 @@
     <string name="label_versatile" translatable="false">" பல துறைகளிலும் திறமையுடைய"</string>
     <string name="label_model">மாதிரிகள்</string>
     <string name="label_version">பதிப்பு</string>
+    <string name="label_no_data_found">வேறு தகவல்கள் இல்லை</string>
+    <string name="label_nocity">இந்த நகரத்திற்கு எந்த நகரமும் கிடைக்கவில்லை</string>
+    <string name="label_get_otp" translatable="false">OTP ஐப் பெறுக</string>
+    <string name="label_enter_your_otp" translatable="false">" உங்கள் OTP ஐ உள்ளிடவும்"</string>
+    <string name="label_loading">loading</string>
+    <string name="label_welcome">Rotogro க்கு வரவேற்கிறோம்</string>
+    <string name="label_coming_soon">"விரைவில் "</string>
 </resources>

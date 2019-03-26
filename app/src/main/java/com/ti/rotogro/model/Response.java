@@ -33,14 +33,5 @@ public class Response implements Serializable {
       this.response_message = response_message;
    }
 
-   private User_Info userInfo;
-
-   public void setUserInfo( User_Info userInfo ) {
-      this.userInfo = userInfo;
-   }
-
-   public User_Info getUserInfo() {
-      return userInfo;
-   }
 
 }

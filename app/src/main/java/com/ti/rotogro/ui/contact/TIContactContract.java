@@ -3,9 +3,8 @@ package com.ti.rotogro.ui.contact;
 import com.ti.rotogro.base.BaseView;
 import com.ti.rotogro.data.db.entity.AddressMaster;
 import com.ti.rotogro.data.db.entity.CityMaster;
+import com.ti.rotogro.data.db.entity.LanguageMaster;
 import com.ti.rotogro.data.db.entity.StateMaster;
-import com.ti.rotogro.model.ContactDetail;
-import com.ti.rotogro.model.State;
 
 import java.util.List;
 
@@ -17,9 +16,9 @@ public class TIContactContract {
 
       void getStateValues();
 
-      void getCityValues( String aStateId );
+      void getCityValues( String aStateId, LanguageMaster aLanguageId );
 
-      void getContactValues( String aStateId, String aCityId );
+      void getContactValues( String aStateId, String aCityId,LanguageMaster aLanguageId );
 
    }
 

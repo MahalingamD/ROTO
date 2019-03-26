@@ -1,9 +1,5 @@
 package com.ti.rotogro.base;
 
-/**
- * Created by root on 17/4/17.
- */
-
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;

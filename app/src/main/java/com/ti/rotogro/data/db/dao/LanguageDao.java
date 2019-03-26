@@ -1,5 +1,6 @@
 package com.ti.rotogro.data.db.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -32,6 +33,9 @@ public interface LanguageDao {
 
    // @Query("SELECT * FROM language")
 
-   @Query("SELECT * FROM language where IsActive = :active")
+   @Query("SELECT * FROM language where IsActive = :active ORDER BY LanguageId")
    List<LanguageMaster> getAllLanguages( int active );
+
+   @Query("SELECT * FROM language where IsActive = :active ORDER BY LanguageId")
+   LiveData<List<LanguageMaster>> getAllLiveLanguages( int active );
 }

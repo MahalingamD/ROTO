@@ -29,7 +29,7 @@ public interface ProductDao {
    @Query("DELETE FROM product")
    void deleteAll();
 
-   @Query("SELECT * FROM product where  LanguageId = :aLanguage and IsActive = :aActive")
+   @Query("SELECT * FROM product where  LanguageId = :aLanguage and IsActive = :aActive ORDER BY ProductId")
    List<Product> getAllsProducts( String aLanguage, String aActive );
 
 

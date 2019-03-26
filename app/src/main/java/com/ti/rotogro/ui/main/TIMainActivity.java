@@ -2,14 +2,11 @@ package com.ti.rotogro.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,12 +31,10 @@ import com.ti.rotogro.base.BaseActivity;
 import com.ti.rotogro.data.db.AppDatabase;
 import com.ti.rotogro.data.db.entity.LanguageMaster;
 import com.ti.rotogro.helper.TIHelper;
-import com.ti.rotogro.model.User_Info;
 import com.ti.rotogro.preference.TIPrefs;
 import com.ti.rotogro.ui.dialog.RecyclerItemClickListener;
 import com.ti.rotogro.ui.dialog.adapter.TILanguageRecyclerAdapter;
 import com.ti.rotogro.ui.home.TIHomeFragment;
-import com.ti.rotogro.utils.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +64,7 @@ public class TIMainActivity extends BaseActivity implements TIMainContract.View 
    private RecyclerView myRecyclerView;
    private TILanguageRecyclerAdapter myAdapter;
    List<LanguageMaster> myLanguageMasterList;
-   User_Info myUser_info;
+
 
    LanguageMaster mySelectLanguageMaster;
    AppDatabase myAppDatabase;
@@ -89,12 +83,19 @@ public class TIMainActivity extends BaseActivity implements TIMainContract.View 
    @Override
    protected void onCreate( Bundle savedInstanceState ) {
       super.onCreate( savedInstanceState );
+
+      //  LanguageMaster aLanguageMaster = TIPrefs.getObject( "language", LanguageMaster.class );
+      // String aLang = firstTwoChar( aLanguageMaster.getLan_Name() );
+      String aString = TIPrefs.getString( "sel_language", "" );
+      setLocale( aString );
+
       setContentView( R.layout.activity_main );
 
       StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
       StrictMode.setThreadPolicy( policy );
 
       myContext = this;
+
 
       myTiMainPresenter = new TIMainPresenter( this, myContext );
       myTiMainPresenter.attachView( this );
@@ -113,7 +114,6 @@ public class TIMainActivity extends BaseActivity implements TIMainContract.View 
       mNavigationView = findViewById( R.id.navigation_view );
       mAppVersionTextView = findViewById( R.id.tv_app_version );
       myRightMenu = findViewById( R.id.activity_menu_right );
-
 
       setUp();
    }
@@ -238,18 +238,27 @@ public class TIMainActivity extends BaseActivity implements TIMainContract.View 
          if( mySelectLanguageMaster != null ) {
             TIPrefs.putObject( "language", mySelectLanguageMaster );
 
+            String aLang;
             switch( mySelectLanguageMaster.getLan_id() ) {
                case "1":
-                  setLocale( "ta" );
+                  //aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  aLang = "ta";
+                  setLocale( aLang );
                   break;
                case "2":
-                  setLocale( "en" );
+                  aLang = "en";
+                  // aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  setLocale( aLang );
                   break;
                case "3":
-                  setLocale( "te" );
+                  // aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  aLang = "te";
+                  setLocale( aLang );
                   break;
                case "4":
-                  setLocale( "hi" );
+                  // aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  aLang = "hi";
+                  setLocale( aLang );
                   break;
                default:
                   setLocale( "en" );
@@ -257,7 +266,7 @@ public class TIMainActivity extends BaseActivity implements TIMainContract.View 
             }
 
             myFragmentManager.clearAllFragments();
-            recreate();
+            refresh();
          }
 
          dialogInterface.dismiss();
@@ -268,6 +277,20 @@ public class TIMainActivity extends BaseActivity implements TIMainContract.View 
       dialog.show();
    }
 
+   private void refresh() {
+      Intent intent = getIntent();
+      overridePendingTransition( 0, 0 );
+      intent.addFlags( Intent.FLAG_ACTIVITY_NO_ANIMATION );
+      finish();
+      overridePendingTransition( 0, 0 );
+      startActivity( intent );
+   }
+
+
+   public String firstTwoChar( String str ) {
+      return str.length() < 2 ? str : str.substring( 0, 2 ).toLowerCase();
+   }
+
    private void setValues() {
       List<LanguageMaster> aLanguageMasterList = myAppDatabase.languageModel().getAllLanguages( 1 );
 
@@ -276,6 +299,8 @@ public class TIMainActivity extends BaseActivity implements TIMainContract.View 
 
    @Override
    public void updateUserName( String currentUserName ) {
+
+      mNameTextView.setText( myContext.getResources().getString( R.string.label_welcome ) );
    }
 
    @Override

@@ -87,7 +87,7 @@ public class TIProductDetailAdapter extends PagerAdapter {
       myRecyclerAdapter = new TIProductRecyclerAdapter( myContext, aDetailList );
       myRecyclerview.setAdapter( myRecyclerAdapter );
 
-      aProductName.setText( aBladeTypes.getBladeTypeName() );
+      aProductName.setText( aBladeTypes.getBladeTypeName().toLowerCase() );
 
       loadGlideImage( aBladeTypes.getBladeImage1(), aMainImageView );
 

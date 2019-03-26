@@ -31,6 +31,10 @@ public interface CityMasterDao {
    @Query("DELETE FROM city")
    void deleteAll();
 
-   @Query("SELECT * FROM city where StateId= :aStateId and  IsActive = :active")
+   @Query("SELECT * FROM city where StateId= :aStateId and  IsActive = :active ORDER BY CityId")
    List<CityMaster> getAllCity( String aStateId, String active );
+
+
+   @Query("SELECT * FROM city where StateId= :aStateId and LanguageId = :aLanguageId and IsActive = :active ORDER BY CityId")
+   List<CityMaster> getAllSelectedCity( String aStateId, String aLanguageId, String active );
 }

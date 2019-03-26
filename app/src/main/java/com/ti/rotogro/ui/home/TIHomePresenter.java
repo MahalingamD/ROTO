@@ -22,6 +22,7 @@ import com.ti.rotogro.model.Data;
 import com.ti.rotogro.model.VersionDetails;
 import com.ti.rotogro.preference.TIPrefs;
 import com.ti.rotogro.service.RetrofitInstance;
+import com.ti.rotogro.utils.MGProgressDialog;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -71,10 +72,6 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
    public void initPresenter() {
       getView().initFragment();
       getView().getViewHeight();
-      getView().showProgress();
-
-      //  new DownloadFileFromData().execute( "https://www.gstatic.com/webp/gallery3/1.png" );
-      // file_download( "http://www.freeimageslive.com/galleries/objects/general/pics/woodenbox0482.jpg" );
    }
 
 
@@ -94,12 +91,11 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
       if( getView().checkInternet() ) {
 
          myRetrofitInstance.getAPI()
-                 .getAppUpdate( BuildConfig.VERSION_NAME )
+                 .getVersionResult( "GetAppUpdate", BuildConfig.VERSION_NAME )
                  .enqueue( new Callback<Data>() {
                     @Override
                     public void onResponse( @NonNull Call<Data> call, @NonNull Response<Data> response ) {
 
-                       // getView().hideProgress();
                        Data data = response.body();
 
                        if( data != null && data.getResponse() != null ) {
@@ -130,8 +126,6 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
                     public void onFailure( @NonNull Call<Data> call, @NonNull Throwable t ) {
                        try {
                           Log.e( "Error", t.getMessage().toString() );
-                          //getView().hideProgress();
-                          //  TIHelper.showAlertDialog( myContext, "Something went wrong!" );
                        } catch( Exception e ) {
                           e.printStackTrace();
                        }
@@ -143,12 +137,17 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
 
    @Override
    public void checkProductUpdate() {
-      // TIPrefs.putString( "LastUpdate", "2019-02-04 11:40:52.810" );
 
       if( getView().checkInternet() ) {
-         getView().showProgress();
+         //getView().showProgress();
+         getView().hideProgress();
+         MGProgressDialog myProgressDialog = new MGProgressDialog( myContext );
+         myProgressDialog.show();
+         myProgressDialog.setCancelable( false );
+         myProgressDialog.setMessage( myContext.getResources().getString( R.string.label_loading ) );
+
          myRetrofitInstance.getAPI()
-                 .updateProduct( TIPrefs.getString( "LastUpdate", "" ) )
+                 .updateProduct( "GetUpdateProduct", TIPrefs.getString( "LastUpdate", "" ) )
                  .enqueue( new Callback<Data>() {
                     @Override
                     public void onResponse( @NonNull Call<Data> call, @NonNull Response<Data> response ) {
@@ -184,10 +183,9 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
                                 }
 
 
-                               /* if( mLanguageMasterList != null && mLanguageMasterList.size() > 0 ) {
+                                if( mLanguageMasterList != null && mLanguageMasterList.size() > 0 ) {
                                    myAppDatabase.languageModel().insertAllLanguage( mLanguageMasterList );
                                 }
-
 
                                 if( mStateMasterList != null && mStateMasterList.size() > 0 ) {
                                    myAppDatabase.stateMasterDao().insertAllState( mStateMasterList );
@@ -199,7 +197,8 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
 
                                 if( mAddressMasterList != null && mAddressMasterList.size() > 0 ) {
                                    myAppDatabase.addressMasterDao().insertAllAddress( mAddressMasterList );
-                                }*/
+                                }
+
                                 LanguageMaster aLanguageMaster = TIPrefs.getObject( "language", LanguageMaster.class );
 
                                 if( aLanguageMaster != null ) {
@@ -207,14 +206,20 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
                                    getView().setRecyclerViewAdapter( aProductList );
                                 }
 
-                                getView().hideProgress();
-                               /* DateFormat df = new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss.SSS" );
+                                myProgressDialog.dismiss();
+
+                                DateFormat df = new SimpleDateFormat( BuildConfig.Date_field );
                                 String date = df.format( Calendar.getInstance().getTime() );
-                                TIPrefs.putString( "LastUpdate", date );*/
+                                TIPrefs.putString( "LastUpdate", date );
+                             } else {
+                                myProgressDialog.dismiss();
                              }
+                          } else {
+                             myProgressDialog.dismiss();
                           }
                        } catch( Exception e ) {
                           getView().hideProgress();
+                          myProgressDialog.dismiss();
                           e.printStackTrace();
                        }
                     }
@@ -223,9 +228,8 @@ public class TIHomePresenter extends BasePresenter<TIHomeContract.View> implemen
                     public void onFailure( @NonNull Call<Data> call, @NonNull Throwable t ) {
                        try {
                           getView().hideProgress();
+                          myProgressDialog.dismiss();
                           Log.e( "Error", t.getMessage().toString() );
-                          //getView().hideProgress();
-                          //  TIHelper.showAlertDialog( myContext, "Something went wrong!" );
                        } catch( Exception e ) {
                           e.printStackTrace();
                        }

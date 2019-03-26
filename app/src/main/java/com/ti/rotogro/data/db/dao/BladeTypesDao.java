@@ -31,7 +31,7 @@ public interface BladeTypesDao {
    void deleteAll();
 
 
-   @Query("SELECT * FROM bladetypes where ProductId= :aProducdId and IsActive = :aActive")
+   @Query("SELECT * FROM bladetypes where ProductId= :aProducdId and IsActive = :aActive ORDER BY BladeTypeId")
    List<BladeTypes> getAllProducts( String aProducdId, String aActive );
 
 

@@ -22,11 +22,6 @@ import com.ti.rotogro.utils.MGProgressDialog;
 
 import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
 
-
-/**
- * Created by root on 17/4/17.
- */
-
 public abstract class BaseActivity extends ActivityManagePermission implements BaseView {
 
    private MGProgressDialog mProgressDialog;
@@ -50,7 +45,6 @@ public abstract class BaseActivity extends ActivityManagePermission implements B
    @Override
    protected void onRestart() {
       super.onRestart();
-
    }
 
    @Override

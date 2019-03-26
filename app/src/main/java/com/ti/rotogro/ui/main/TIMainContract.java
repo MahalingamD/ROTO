@@ -36,7 +36,6 @@ public interface TIMainContract extends BaseView {
       void onHomeMenuClick();
 
       void onNavMenuCreated();
-      void getLanguage();
 
    }
 

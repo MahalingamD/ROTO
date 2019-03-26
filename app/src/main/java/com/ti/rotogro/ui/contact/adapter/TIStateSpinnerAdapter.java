@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.ti.rotogro.R;
 import com.ti.rotogro.data.db.entity.StateMaster;
-import com.ti.rotogro.model.State;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TIStateSpinnerAdapter extends ArrayAdapter<StateMaster> {

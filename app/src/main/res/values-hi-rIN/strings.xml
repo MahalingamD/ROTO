@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_mobile_number">"मोबाइल नंबर "</string>
+    <string name="label_get_otp">प्राप्त OTP</string>
+    <string name="label_enter_your_otp">अपना OTP दर्ज करें</string>
+    <string name="label_submit">जमा करें</string>
+    <string name="app_exit_toast">बाहर निकलने के लिए फिर से दबाएँ!</string>
+    <string name="label_call_for_detail">विवरण के लिए कॉल</string>
+    <string name="call_for_details">विवरण के लिए कॉल</string>
+    <string name="label_home">होम</string>
+    <string name="label_language">भाषा</string>
+    <string name="label_about">बारे में</string>
+    <string name="alert_message_check_internet">"कृपया अपने इंटरनेट कनेक्शन की जाँच करें "</string>
+    <string name="msg_app_update">"अद्यतन करें "</string>
+    <string name="msg_app_install">"इंस्टॉल करें "</string>
+    <string name="label_versatile">बहुमुखी</string>
+    <string name="label_tough">मजबूत</string>
+    <string name="label_city">शहर</string>
+    <string name="label_state">राज्य</string>
+    <string name="label_version">संस्करण</string>
+    <string name="label_no_data_found">"कोई डेटा नहीं मिला "</string>
+    <string name="label_nocity">"इस राज्य के लिए कोई शहर उपलब्ध नहीं है "</string>
+    <string name="label_model">"मॉडल "</string>
+    <string name="label_ok">ठीक</string>
+    <string name="label_select_language">"अपनी भाषा का चयन करें "</string>
+    <string name="label_erroe_valid_otp">मान्य OTP दर्ज करें</string>
+    <string name="label_error_valid_mobile_number">वैध मोबाइल नंबर दर्ज करें</string>
+    <string name="label_loading" translatable="false">लदान</string>
+    <string name="label_welcome">"रोटोगरो में आपका स्वागत है "</string>
+    <string name="label_coming_soon">जल्द आ रहा है</string>
+</resources>

@@ -18,7 +18,7 @@
     <TextView
         android:id="@+id/header_name"
         style="@style/TextStyle.Title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_10"
         android:text="" />
@@ -26,9 +26,10 @@
     <TextView
         android:id="@+id/header_mobile_fragment"
         style="@style/TextStyle.Title.Sub"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="" />
+        android:layout_marginTop="@dimen/margin_5"
+        android:text=""
+        android:textStyle="bold" />
 
 </LinearLayout>

@@ -13,23 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ti.rotogro.R;
 import com.ti.rotogro.base.BaseFragment;
 import com.ti.rotogro.data.db.entity.AddressMaster;
 import com.ti.rotogro.data.db.entity.BladeTypes;
 import com.ti.rotogro.data.db.entity.CityMaster;
-import com.ti.rotogro.data.db.entity.Product;
+import com.ti.rotogro.data.db.entity.LanguageMaster;
 import com.ti.rotogro.data.db.entity.StateMaster;
 import com.ti.rotogro.helper.TIHelper;
-import com.ti.rotogro.model.ContactDetail;
-import com.ti.rotogro.model.State;
-
+import com.ti.rotogro.preference.TIPrefs;
 import com.ti.rotogro.ui.contact.adapter.TICitySpinnerAdapter;
 import com.ti.rotogro.ui.contact.adapter.TIContactRecyclerAdapter;
 import com.ti.rotogro.ui.contact.adapter.TIStateSpinnerAdapter;
@@ -67,6 +63,7 @@ public class TIContactFragment extends BaseFragment implements TIContactContract
 
    Spinner myStateSpinner, myCitySpinner;
    RecyclerView myContactRecyclerView;
+   LanguageMaster aLanguage;
 
    @Override
    public View onCreateView( @NonNull LayoutInflater inflater, ViewGroup container,
@@ -117,7 +114,8 @@ public class TIContactFragment extends BaseFragment implements TIContactContract
       mStateLayout.setOnClickListener( this );
       mCityLayout.setOnClickListener( this );
 
-      mProductDetailTxt.setText( myBladeTypes.getBladeTypeName() );
+      if( myBladeTypes != null )
+         mProductDetailTxt.setText( myBladeTypes.getBladeTypeName().toLowerCase() );
    }
 
    @Override
@@ -141,7 +139,8 @@ public class TIContactFragment extends BaseFragment implements TIContactContract
          public void onItemSelected( AdapterView<?> adapterView, View view, int i, long l ) {
             StateMaster stateMaster = ( StateMaster ) adapterView.getItemAtPosition( i );
             mSelectedState = stateMaster.getStateId();
-            myTiContactPresenter.getCityValues( mSelectedState );
+            aLanguage = TIPrefs.getObject( "language", LanguageMaster.class );
+            myTiContactPresenter.getCityValues( mSelectedState, aLanguage );
          }
 
          @Override
@@ -171,7 +170,7 @@ public class TIContactFragment extends BaseFragment implements TIContactContract
          public void onItemSelected( AdapterView<?> adapterView, View view, int i, long l ) {
             CityMaster cityMaster = ( CityMaster ) adapterView.getItemAtPosition( i );
             mSelectedCity = cityMaster.getCityId();
-            myTiContactPresenter.getContactValues( mSelectedState, mSelectedCity );
+            myTiContactPresenter.getContactValues( mSelectedState, mSelectedCity, aLanguage);
          }
 
          @Override
@@ -204,7 +203,7 @@ public class TIContactFragment extends BaseFragment implements TIContactContract
     * RecyclerItem click event listener
     */
    private RecyclerItemClickListener recyclerItemClickListener = aContactDetail -> {
-      Intent intent = new Intent( Intent.ACTION_CALL );
+      Intent intent = new Intent( Intent.ACTION_DIAL );
       intent.setData( Uri.parse( "tel:" + aContactDetail.getMobileNumber() ) );
       startActivity( intent );
    };

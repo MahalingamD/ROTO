@@ -22,7 +22,7 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
 
    private List<LanguageMaster> myLanguageMasterList;
    private LanguageRecyclerItemClickListener languageRecyclerItemClickListener;
-   AppCompatActivity myContext;
+   private AppCompatActivity myContext;
 
    public LanguageRecyclerAdapter( AppCompatActivity aContext, List<LanguageMaster> aLanguageMasterList, LanguageRecyclerItemClickListener languageRecyclerItemClickListener ) {
       this.myLanguageMasterList = aLanguageMasterList;
@@ -46,22 +46,19 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
       holder.myLanguageTXT.setText( aLanguageMaster.getLan_Name() );
 
 
-      holder.itemView.setOnClickListener( new View.OnClickListener() {
-         @Override
-         public void onClick( View v ) {
-            languageRecyclerItemClickListener.onItemClick( aLanguageMaster );
+      holder.itemView.setOnClickListener( v -> {
+         languageRecyclerItemClickListener.onItemClick( position, aLanguageMaster );
 
-            for( int i = 0; i < myLanguageMasterList.size(); i++ ) {
-               LanguageMaster aLanguageMaster = myLanguageMasterList.get( i );
-               if( i == position ) {
-                  aLanguageMaster.setSelect( true );
-               } else {
-                  aLanguageMaster.setSelect( false );
-               }
+         for( int i = 0; i < myLanguageMasterList.size(); i++ ) {
+            LanguageMaster aLanguageMaster1 = myLanguageMasterList.get( i );
+            if( i == position ) {
+               aLanguageMaster1.setSelect( true );
+            } else {
+               aLanguageMaster1.setSelect( false );
             }
-
-            notifyDataSetChanged();
          }
+
+         notifyDataSetChanged();
       } );
 
 
@@ -77,6 +74,11 @@ public class LanguageRecyclerAdapter extends RecyclerView.Adapter<LanguageRecycl
    @Override
    public int getItemCount() {
       return myLanguageMasterList.size();
+   }
+
+   public void updateAdapter( List<LanguageMaster> aLanguageMasterList ) {
+      myLanguageMasterList = aLanguageMasterList;
+      notifyDataSetChanged();
    }
 
    class ViewHolder extends RecyclerView.ViewHolder {

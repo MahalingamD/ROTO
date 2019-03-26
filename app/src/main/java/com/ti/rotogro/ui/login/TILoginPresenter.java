@@ -82,7 +82,7 @@ public class TILoginPresenter extends BasePresenter<TILoginContract.View> implem
             getView().showProgress();
 
             myRetrofitInstance.getAPI()
-                    .getAllLanguage()
+                    .getAllLanguage( "GetlanguageList" )
                     .enqueue( new Callback<Data>() {
                        @Override
                        public void onResponse( @NonNull Call<Data> call, @NonNull Response<Data> response ) {
@@ -142,13 +142,13 @@ public class TILoginPresenter extends BasePresenter<TILoginContract.View> implem
       try {
 
 
-         File dir = new File( Environment.getExternalStorageDirectory() + File.separator + myContext.getString( R.string.app_name ) );
-         deleteRecursive( dir );
+         //File dir = new File( Environment.getExternalStorageDirectory() + File.separator + myContext.getString( R.string.app_name ) );
+        // deleteRecursive( dir );
 
          if( getView().checkInternet() ) {
             getView().showProgress();
             myRetrofitInstance.getAPI()
-                    .getOTP( aMobileNumber )
+                    .getOTP( "ValidateUser", aMobileNumber )
                     .enqueue( new Callback<Data>() {
                        @Override
                        public void onResponse( @NonNull Call<Data> call, @NonNull Response<Data> response ) {
@@ -159,8 +159,11 @@ public class TILoginPresenter extends BasePresenter<TILoginContract.View> implem
                           if( data != null && data.getResponse() != null ) {
                              if( data.getResponse().getResponse_code().equals( "1" ) )
                                 myTiLoginView.onOTPResult( data.getResponse() );
-                             else
+                             else {
+                                Log.e( "Error code", data.getResponse().getResponse_code() );
+                                Log.e( "Error message", data.getResponse().getResponse_message() );
                                 TIHelper.showAlertDialog( myContext, data.getResponse().getResponse_message() );
+                             }
                           }
                        }
 
@@ -168,6 +171,7 @@ public class TILoginPresenter extends BasePresenter<TILoginContract.View> implem
                        public void onFailure( @NonNull Call<Data> call, @NonNull Throwable t ) {
                           try {
                              getView().hideProgress();
+                             Log.e( "Error message", t.getMessage().toString() );
                              TIHelper.showAlertDialog( myContext, "Something went wrong!" );
                           } catch( Exception e ) {
                              e.printStackTrace();
@@ -188,13 +192,16 @@ public class TILoginPresenter extends BasePresenter<TILoginContract.View> implem
          if( getView().checkInternet() ) {
             getView().showProgress();
             myRetrofitInstance.getAPI()
-                    .validateOTP( params )
+                    .getResult( "ValidateOtp", params )
                     .enqueue( new Callback<Data>() {
                        @Override
                        public void onResponse( @NonNull Call<Data> call, @NonNull Response<Data> response ) {
 
                           getView().hideProgress();
                           Data data = response.body();
+
+                          Log.e( "URL", response.raw().request().url().toString() );
+
 
                           if( data != null && data.getResponse() != null ) {
                              if( data.getResponse().getResponse_code().equals( "1" ) ) {

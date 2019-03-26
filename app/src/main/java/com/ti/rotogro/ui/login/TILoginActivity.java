@@ -53,7 +53,7 @@ import com.ti.rotogro.model.Response;
 import com.ti.rotogro.preference.TIPrefs;
 import com.ti.rotogro.ui.login.adapter.LanguageRecyclerAdapter;
 import com.ti.rotogro.ui.main.TIMainActivity;
-import com.ti.rotogro.utils.LocaleHelper;
+import com.ti.rotogro.utils.AppSignatureHelper;
 import com.ti.rotogro.utils.MGGpsLocation;
 
 import java.net.URLEncoder;
@@ -85,8 +85,13 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
    MGGpsLocation myGpsLocation;
 
    LanguageMaster myLanguageMaster;
+   LanguageRecyclerAdapter mLanguageRecyclerAdapter;
 
    String myLatitudeStr = "", myLongitudeStr = "";
+   int mPosition = 0;
+
+   List<LanguageMaster> myLanguageMasterList;
+   RecyclerView.LayoutManager mLayoutManager;
 
    private SmsBroadcastReceiver myBroadcastReceiver;
    private String myDeviceOS, myDeviceModel, myDeviceMake, myDeviceSize, myDeviceType, myDeviceIMEI;
@@ -98,17 +103,6 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
    @Override
    protected void attachBaseContext( Context newBase ) {
       if( Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 ) {
-        /* Configuration config = newBase.getResources().getConfiguration();
-         //Update your config with the Locale i. e. saved in SharedPreferences
-         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(newBase);
-         String language = prefs.getString("Select", "ta_IN");
-         Locale.setDefault(locale);
-         config.setLocale(new Locale(language));
-         newBase = newBase.createConfigurationContext(config);*/
-         // LocaleHelper.setLocale( newBase, "ta" );
-
-         // String aString = LocaleHelper.getLanguage( newBase );
-
          String aString = TIPrefs.getString( "sel_language", "" );
          newBase = TIHelper.changeLang( newBase, aString );
       }
@@ -118,13 +112,19 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
    @Override
    protected void onCreate( Bundle savedInstanceState ) {
       super.onCreate( savedInstanceState );
+
+      LanguageMaster aLanguageMaster = TIPrefs.getObject( "language", LanguageMaster.class );
+      if( aLanguageMaster != null ) {
+        // String aLang = firstTwoChar( aLanguageMaster.getLan_Name() );
+         String aString = TIPrefs.getString( "sel_language", "" );
+         setLocale( aString );
+      }
+
       setContentView( R.layout.activity_tilogin );
       myContext = this;
       myTiLoginPresenter = new TILoginPresenter( this, myContext );
       myTiLoginPresenter.attachView( this );
       myTiLoginPresenter.initPresenter();
-
-      // LocaleHelper.setLocale( myContext, "ta" );
 
    }
 
@@ -134,6 +134,9 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
 
       myAppDatabase = AppDatabase.getDatabase( getApplication() );
       myLanguageRecyclerView = findViewById( R.id.language_recycrer_view );
+
+      AppSignatureHelper appSignatureHelper = new AppSignatureHelper( myContext );
+      appSignatureHelper.getAppSignatures();
 
       myGetOTPBUT = findViewById( R.id.login_get_otp_BUT );
       mySubmitBut = findViewById( R.id.login_submit_BUT );
@@ -150,6 +153,8 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
 
       myLoginErrorLayout = findViewById( R.id.activity_common_LAY_inflate_no_permission );
 
+      myLanguageMasterList = new ArrayList<>();
+
       initGoogleAPIClient();
 
       //set listener
@@ -157,12 +162,16 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
       mySubmitBut.setOnClickListener( this );
       myReSendBUT.setOnClickListener( this );
 
-      RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( TILoginActivity.this, LinearLayoutManager.HORIZONTAL, false );
-      myLanguageRecyclerView.setLayoutManager( layoutManager );
+      mLayoutManager = new LinearLayoutManager( TILoginActivity.this, LinearLayoutManager.HORIZONTAL, false );
+      myLanguageRecyclerView.setLayoutManager( mLayoutManager );
 
-      getOTPVerification();
+      mLanguageRecyclerAdapter = new LanguageRecyclerAdapter( myContext, myLanguageMasterList, languageRecyclerItemClickListener );
+      myLanguageRecyclerView.setAdapter( mLanguageRecyclerAdapter );
 
-      TIPrefs.putString( "LastUpdate", "2019-02-04 11:40:52.810" );
+      //   getOTPVerification();
+
+      TIPrefs.putString( "LastUpdate", "2019-02-08 11:40:52.810" );
+
    }
 
 
@@ -201,28 +210,47 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
 
    @Override
    public void setRecyclerViewAdapter( List<LanguageMaster> aLanguageMasterList ) {
-      hideProgress();
-      // List<LanguageMaster> aSelectedLanguageList = new ArrayList<>();
-
-      LanguageMaster aLanguage = TIPrefs.getObject( "language", LanguageMaster.class );
-
-      if( aLanguage != null ) {
-
-         for( int i = 0; i < aLanguageMasterList.size(); i++ ) {
-            LanguageMaster bLanguage = aLanguageMasterList.get( i );
-
-            if( bLanguage.Lan_id.equals( aLanguage.getLan_id() ) ) {
-               bLanguage.setSelect( true );
-               myLanguageMaster = aLanguage;
-               TIPrefs.putObject( "language", myLanguageMaster );
+      try {
+         hideProgress();
+         myLanguageMasterList = aLanguageMasterList;
+         LanguageMaster aLanguage = TIPrefs.getObject( "language", LanguageMaster.class );
+         if( aLanguage != null ) {
+            for( int i = 0; i < myLanguageMasterList.size(); i++ ) {
+               LanguageMaster bLanguage = myLanguageMasterList.get( i );
+               if( bLanguage.Lan_id.equals( aLanguage.getLan_id() ) ) {
+                  bLanguage.setSelect( true );
+                  myLanguageMaster = aLanguage;
+                  mPosition = i;
+                  TIPrefs.putObject( "language", myLanguageMaster );
+               }
             }
-
+         } else {
+            for( int i = 0; i < myLanguageMasterList.size(); i++ ) {
+               LanguageMaster bLanguage = myLanguageMasterList.get( i );
+               if( bLanguage.Lan_Name.toLowerCase().contains( "english" ) ) {
+                  bLanguage.setSelect( true );
+                  myLanguageMaster = bLanguage;
+                  mPosition = i;
+                  TIPrefs.putObject( "language", myLanguageMaster );
+               }
+            }
          }
+
+         mLanguageRecyclerAdapter.updateAdapter( aLanguageMasterList );
+
+         final Handler handler = new Handler();
+         handler.postDelayed( new Runnable() {
+            @Override
+            public void run() {
+               myLanguageRecyclerView.smoothScrollToPosition( mPosition );
+            }
+         }, 10 );
+
+      } catch( Exception e ) {
+         e.printStackTrace();
       }
 
 
-      LanguageRecyclerAdapter adapter = new LanguageRecyclerAdapter( myContext, aLanguageMasterList, languageRecyclerItemClickListener );
-      myLanguageRecyclerView.setAdapter( adapter );
    }
 
    @Override
@@ -238,6 +266,7 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
       myGetOTPBUT.setVisibility( View.GONE );
       mySubmitBut.setVisibility( View.VISIBLE );
       Log.e( "OTP", aResponse.getOtp() );
+      myOTPEditText.setText( aResponse.getOtp() );
    }
 
 
@@ -254,6 +283,7 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
                   if( myLanguageMaster != null ) {
                      showProgress();
                      getDeviceDetail();
+
                      Map<String, String> params = new HashMap<>();
                      params.put( "Mobile_Number", myMobileEditText.getText().toString() );
                      params.put( "Otp", myOTPEditText.getText().toString() );
@@ -331,74 +361,78 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
     */
    private LanguageRecyclerItemClickListener languageRecyclerItemClickListener = new LanguageRecyclerItemClickListener() {
       @Override
-      public void onItemClick( LanguageMaster aLanguageMaster ) {
+      public void onItemClick( int position, LanguageMaster aLanguageMaster ) {
+         try {
+            myLanguageMaster = aLanguageMaster;
+            TIPrefs.putObject( "language", aLanguageMaster );
+            String aLang;
+            switch( myLanguageMaster.getLan_id() ) {
+               case "1":
+                  //aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  aLang = "ta";
+                  setLocale( aLang );
+                  break;
+               case "2":
+                  aLang = "en";
+                 // aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  setLocale( aLang );
+                  break;
+               case "3":
+                 // aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  aLang = "te";
+                  setLocale( aLang );
+                  break;
+               case "4":
+                 // aLang = firstTwoChar( myLanguageMaster.getLan_Name() );
+                  aLang = "hi";
+                  setLocale( aLang );
+                  break;
+               default:
+                  setLocale( "en" );
+                  break;
+            }
 
-         myLanguageMaster = aLanguageMaster;
-         TIPrefs.putObject( "language", aLanguageMaster );
-         switch( myLanguageMaster.getLan_id() ) {
-            case "1":
-               // LocaleHelper.setLocale( myContext, "ta" );
-               setLocale( "ta" );
-               break;
-            case "2":
-               // LocaleHelper.setLocale( myContext, "en" );
-               setLocale( "en" );
-               break;
-            case "3":
-               //  LocaleHelper.setLocale( myContext, "te" );
-               setLocale( "te" );
-               break;
-            case "4":
-               //   LocaleHelper.setLocale( myContext, "hi" );
-               setLocale( "hi" );
-               break;
-            default:
-               //  LocaleHelper.setLocale( myContext, "en" );
-               setLocale( "en" );
-               break;
+            refresh();
+         } catch( Exception e ) {
+            e.printStackTrace();
          }
-
-         recreate();
       }
-
    };
 
-
-   public void setLocale( String lang ) {
-    /*  myLocale = new Locale( lang );
-      Resources res = getResources();
-      DisplayMetrics dm = res.getDisplayMetrics();
-      Configuration conf = res.getConfiguration();
-      conf.locale = myLocale;
-      res.updateConfiguration( conf, dm );
-      this.recreate();*/
-
-
-      TIPrefs.putString( "sel_language", lang );
-
-      String language = lang;
-      String country = "IN";
-      Locale locale = new Locale( lang, country );
-
-      Resources activityRes = getResources();
-      Configuration activityConf = activityRes.getConfiguration();
-
-      //Locale newLocale = new Locale( lang );
-
-      activityConf.setLocale( locale );
-      activityRes.updateConfiguration( activityConf, activityRes.getDisplayMetrics() );
-
-      Resources applicationRes = getApplicationContext().getResources();
-      Configuration applicationConf = applicationRes.getConfiguration();
-      applicationConf.setLocale( locale );
-      applicationRes.updateConfiguration( applicationConf, applicationRes.getDisplayMetrics() );
+   private void refresh() {
+      Intent intent = getIntent();
+      overridePendingTransition( 0, 0 );
+      intent.addFlags( Intent.FLAG_ACTIVITY_NO_ANIMATION );
+      finish();
+      overridePendingTransition( 0, 0 );
+      startActivity( intent );
    }
 
 
-   @Override
-   public void onConfigurationChanged( Configuration newConfig ) {
-      super.onConfigurationChanged( newConfig );
-      LocaleHelper.onAttach( this );
+   public String firstTwoChar( String str ) {
+      return str.length() < 2 ? str : str.substring( 0, 2 ).toLowerCase();
+   }
+
+
+   public void setLocale( String lang ) {
+      try {
+         TIPrefs.putString( "sel_language", lang );
+         String country = "IN";
+         Locale locale = new Locale( lang, country );
+
+         Resources activityRes = getResources();
+         Configuration activityConf = activityRes.getConfiguration();
+
+         activityConf.setLocale( locale );
+         activityRes.updateConfiguration( activityConf, activityRes.getDisplayMetrics() );
+
+         Resources applicationRes = getApplicationContext().getResources();
+         Configuration applicationConf = applicationRes.getConfiguration();
+         applicationConf.setLocale( locale );
+         applicationRes.updateConfiguration( applicationConf, applicationRes.getDisplayMetrics() );
+      } catch( Exception e ) {
+         e.printStackTrace();
+      }
    }
 
 
@@ -411,12 +445,9 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
       task.addOnSuccessListener( new OnSuccessListener<Void>() {
          @Override
          public void onSuccess( Void aVoid ) {
-
             myBroadcastReceiver = new SmsBroadcastReceiver();
             IntentFilter filter = new IntentFilter( SmsRetriever.SMS_RETRIEVED_ACTION );
             registerReceiver( myBroadcastReceiver, filter );
-            // Successfully started retriever, expect broadcast intent
-            // ...
          }
       } );
 
@@ -424,8 +455,7 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
       task.addOnFailureListener( new OnFailureListener() {
          @Override
          public void onFailure( @NonNull Exception e ) {
-            // Failed to start retriever, inspect Exception for more details
-            // ...
+            Log.e( "Error", "Fail to start SmsRetriever" );
          }
       } );
 
@@ -435,16 +465,13 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
    @Override
    protected void onResume() {
       super.onResume();
-
       askPermission();
-
       if( checkPermissionGranted() ) {
          myLoginLayout.setVisibility( View.VISIBLE );
          getDeviceDetail();
          checkPermissions();
          getGpsDetailInfo();
       }
-
       registerReceiver( gpsLocationReceiver, new IntentFilter( BROADCAST_ACTION ) );//Register broadcast receiver to check the status of GPS
    }
 
@@ -519,9 +546,6 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
                  PermissionUtils.Manifest_READ_PHONE_STATE,
                  PermissionUtils.Manifest_READ_EXTERNAL_STORAGE,
                  PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE,
-                 PermissionUtils.Manifest_READ_SMS,
-                 PermissionUtils.Manifest_RECEIVE_SMS,
-                 PermissionUtils.Manifest_CALL_PHONE,
                  PermissionUtils.Manifest_ACCESS_COARSE_LOCATION,
                  PermissionUtils.Manifest_ACCESS_FINE_LOCATION
          }, this );
@@ -530,18 +554,12 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
       }
    }
 
-
-   /**
-    * Check for permission in onResume
-    * Return boolean
-    */
    public boolean checkPermissionGranted() {
       boolean isGranted = false;
       try {
          isGranted = isPermissionsGranted( myContext, new String[]{ PermissionUtils.Manifest_READ_PHONE_STATE,
-                 PermissionUtils.Manifest_READ_EXTERNAL_STORAGE, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_READ_SMS,
-                 PermissionUtils.Manifest_RECEIVE_SMS, PermissionUtils.Manifest_CALL_PHONE, PermissionUtils.Manifest_ACCESS_COARSE_LOCATION,
-                 PermissionUtils.Manifest_ACCESS_FINE_LOCATION } );
+                 PermissionUtils.Manifest_READ_EXTERNAL_STORAGE, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE,
+                 PermissionUtils.Manifest_ACCESS_COARSE_LOCATION, PermissionUtils.Manifest_ACCESS_FINE_LOCATION } );
       } catch( Exception e ) {
          e.printStackTrace();
       } finally {
@@ -591,28 +609,30 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
       @Override
       public void onReceive( Context context, Intent intent ) {
 
-         if( SmsRetriever.SMS_RETRIEVED_ACTION.equals( intent.getAction() ) ) {
-            Bundle extras = intent.getExtras();
-            Status status = ( Status ) extras.get( SmsRetriever.EXTRA_STATUS );
+         try {
+            if( SmsRetriever.SMS_RETRIEVED_ACTION.equals( intent.getAction() ) ) {
+               Bundle extras = intent.getExtras();
+               Status status = ( Status ) extras.get( SmsRetriever.EXTRA_STATUS );
 
-            switch( status.getStatusCode() ) {
-               case CommonStatusCodes.SUCCESS:
-                  // Get SMS message contents
-                  String aMessage = ( String ) extras.get( SmsRetriever.EXTRA_SMS_MESSAGE );
-                  if( aMessage.contains( "OTP" ) ) {
-
-                     String[] msgsplit = aMessage.split( ":" );
-
-                     myOTPEditText.setText( msgsplit[ msgsplit.length - 1 ].trim() );
-                  }
-                  // Extract one-time code from the message and complete verification
-                  // by sending the code back to your server.
-                  break;
-               case CommonStatusCodes.TIMEOUT:
-                  // Waiting for SMS timed out (5 minutes)
-                  // Handle the error ...
-                  break;
+               switch( status.getStatusCode() ) {
+                  case CommonStatusCodes.SUCCESS:
+                     myOTPLayout.setVisibility( View.VISIBLE );
+                     // Get SMS message contents
+                     String aMessage = ( String ) extras.get( SmsRetriever.EXTRA_SMS_MESSAGE );
+                     if( aMessage.contains( "ROTOGRO OTP" ) ) {
+                        String[] msgsplit = aMessage.split( ":" );
+                        String aSTR = msgsplit[ 1 ].trim();
+                        String[] aMsg = aSTR.split( "\\s+" );
+                        myOTPEditText.setText( aMsg[ 0 ].trim() );
+                     }
+                     break;
+                  case CommonStatusCodes.TIMEOUT:
+                     TIHelper.showAlertDialog( myContext, "OTP TIMEOUT Press Resend Button" );
+                     break;
+               }
             }
+         } catch( Exception e ) {
+            e.printStackTrace();
          }
       }
    }
@@ -656,7 +676,6 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
    protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
       try {
          switch( requestCode ) {
-            // Check for the integer request code originally supplied to startResolutionForResult().
             case REQUEST_CHECK_SETTINGS:
                switch( resultCode ) {
                   case RESULT_OK:
@@ -684,6 +703,4 @@ public class TILoginActivity extends BaseActivity implements TILoginContract.Vie
       if( myBroadcastReceiver != null )
          unregisterReceiver( myBroadcastReceiver );
    }
-
-
 }

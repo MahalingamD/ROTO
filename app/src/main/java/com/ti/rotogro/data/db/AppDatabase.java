@@ -16,12 +16,11 @@ import com.ti.rotogro.data.db.entity.AddressMaster;
 import com.ti.rotogro.data.db.entity.BladeDescription;
 import com.ti.rotogro.data.db.entity.BladeTypes;
 import com.ti.rotogro.data.db.entity.CityMaster;
-import com.ti.rotogro.data.db.entity.Country;
 import com.ti.rotogro.data.db.entity.LanguageMaster;
 import com.ti.rotogro.data.db.entity.Product;
 import com.ti.rotogro.data.db.entity.StateMaster;
 
-@Database(entities = { LanguageMaster.class, Country.class, Product.class, BladeTypes.class,
+@Database(entities = { LanguageMaster.class, Product.class, BladeTypes.class,
         BladeDescription.class, StateMaster.class, CityMaster.class, AddressMaster.class }, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 

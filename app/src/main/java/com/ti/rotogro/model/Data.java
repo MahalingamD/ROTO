@@ -3,7 +3,6 @@ package com.ti.rotogro.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author mahalingam
@@ -16,9 +15,6 @@ public class Data implements Serializable {
 
    @SerializedName("VersionDetails")
    private VersionDetails VersionDetails;
-
-   @SerializedName("User_Info")
-   private User_Info myUserInfo;
 
    @SerializedName("GetMasterList")
    private GetMasterList mGetMasterList;
@@ -34,9 +30,6 @@ public class Data implements Serializable {
       return VersionDetails;
    }
 
-   public User_Info getUserDetails() {
-      return myUserInfo;
-   }
 
    public GetMasterList getGetMasterList() {
       return mGetMasterList;

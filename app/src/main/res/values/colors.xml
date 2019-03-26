@@ -49,5 +49,8 @@
     <color name="transparent_black_fifty">#0D000000</color>
     <color name="bg_light_grey">#d4d4d4</color>
 
+    <color name="menu_color_blue">#0468c8</color>
+    <color name="text_color">#D50000</color>
+    <color name="grey">#ffdfdfdf</color>
 
 </resources>

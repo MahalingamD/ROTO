@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.ti.rotogro.R;
 import com.ti.rotogro.data.db.entity.AddressMaster;
-import com.ti.rotogro.model.ContactDetail;
 import com.ti.rotogro.ui.contact.RecyclerItemClickListener;
 
 import java.util.List;

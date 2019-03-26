@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "977b550d849c374097a76ccf4ea239d2",
+    "identityHash": "51930efb2f0b2ebe99f165999996be1f",
     "entities": [
       {
         "tableName": "language",
@@ -38,44 +38,6 @@
             "LanguageId"
           ],
           "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "Country",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `alphaCode_one` TEXT, `alphaCode_two` TEXT)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "alphaCode_one",
-            "columnName": "alphaCode_one",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "alphaCode_two",
-            "columnName": "alphaCode_two",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -419,7 +381,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"977b550d849c374097a76ccf4ea239d2\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"51930efb2f0b2ebe99f165999996be1f\")"
     ]
   }
 }

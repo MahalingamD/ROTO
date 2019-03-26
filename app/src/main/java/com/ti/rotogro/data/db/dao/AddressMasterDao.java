@@ -31,6 +31,10 @@ public interface AddressMasterDao {
    @Query("DELETE FROM address")
    void deleteAll();
 
-   @Query("SELECT * FROM address where StateId = :aStateId and CityId = :aCityId and IsActive = :active")
+   @Query("SELECT * FROM address where StateId = :aStateId and CityId = :aCityId and IsActive = :active ORDER BY AddressId")
    List<AddressMaster> getAllAddress( String aStateId, String aCityId, String active );
+
+   @Query("SELECT * FROM address where StateId = :aStateId and CityId = :aCityId and " +
+           "LanguageId=:aLanguageId and IsActive = :active ORDER BY AddressId")
+   List<AddressMaster> getAllSelectedAddress( String aStateId, String aCityId, String aLanguageId, String active );
 }

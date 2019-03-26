@@ -19,8 +19,7 @@
         android:layout_weight="@integer/int_one"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center"
-        android:text="Type"
-        android:layout_margin="@dimen/margin_5"
+        android:text=""
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/font_18"
         android:textStyle="bold" />
@@ -31,9 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="@integer/int_one"
-        android:layout_margin="@dimen/margin_5"
-        android:gravity="left"
-        android:text="68*45"
+        android:gravity="center"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="@dimen/font_24" />
 

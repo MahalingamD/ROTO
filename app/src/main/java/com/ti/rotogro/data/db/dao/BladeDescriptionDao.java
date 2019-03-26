@@ -34,6 +34,6 @@ public interface BladeDescriptionDao {
    List<BladeDescription> getAllActiveProducts( String aActive );
 
 
-   @Query("SELECT * FROM bladedescription where BladeTypeId = :aBladeType and  IsActive = :aActive")
+   @Query("SELECT * FROM bladedescription where BladeTypeId = :aBladeType and  IsActive = :aActive ORDER BY BladeDescId")
    List<BladeDescription> getAllBladeDescriptions( String aBladeType, String aActive );
 }

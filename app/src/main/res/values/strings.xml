@@ -1,13 +1,13 @@
 <resources>
     <!-- <string name="app_name">Rotogro</string>-->
     <string name="label_mobile_number">Mobile number</string>
-    <string name="label_get_otp" translatable="false">Get OTP</string>
-    <string name="label_enter_your_otp" translatable="false">Enter your OTP</string>
+    <string name="label_get_otp">Get OTP</string>
+    <string name="label_enter_your_otp">Enter your OTP</string>
     <string name="label_submit">Submit</string>
     <string name="label_resend_otp" translatable="false">Resend otp</string>
 
     <!--PERMISSON STRING-->
-    <string name="message_permission_denied" translatable="false">Give App access to your  phone, storage, SMS \n so that you can use our services</string>
+    <string name="message_permission_denied" translatable="false">Give App access to your  phone, storage  \n so that you can use our services</string>
     <string name="label_tap_to_retry_permission" translatable="false"><![CDATA[<p align="center"><font color="#2196F3"><u>Tap here to enable permissions</u></font></p>]]> </string>
     <string name="app_exit_toast">Press once again to exit!</string>
 
@@ -52,12 +52,29 @@
     <string name="label_later" translatable="false">LATER</string>
     <string name="not_launch" translatable="false">Couldn\'t launch the market</string>
     <string name="label_ok">OK</string>
-    <string name="label_loading" translatable="false">loading</string>
+    <string name="label_loading">loading</string>
     <string name="label_home_page" translatable="false">Home Screen</string>
     <string name="label_home_s" translatable="false">Home</string>
     <string name="label_model">Models</string>
     <string name="label_version">Version</string>
     <string name="label_no_data_found">No Data Found</string>
     <string name="label_nocity">No City Available for this State</string>
+    <string name="label_welcome">Welcome to rotogro</string>
+    <string name="label_coming_soon">Coming Soon</string>
+
+
+    <string name="main_term_condition" translatable="false">The information contained in this Mobile APP is private for the user alone and for general information purposes only. The information is provided by Rotogro to facilitate and while we endeavour to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability,  suitability or availability with respect to the Mobile APP or the information, products, services, or related graphics contained on the Mobile APP modified by any other for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
+
+In no event will we be liable for any loss or damage including without limitation, direct or indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this Mobile APP.
+
+Through this Mobile APP you are able to link to other Mobile APPs which are not under the control of Rotogro. We have no control over the nature, content and availability of those linked sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views or actions expressed within them.
+
+Every effort is made to keep the Mobile APP up and running smoothly. However, Rotogro takes no responsibility for, and will not be liable for, the Mobile APP being unavailable due to issues beyond our control.
+
+    </string>
+
+    <string name="label_agree_ch" translatable="false">I Agree above terms and condition</string>
+    <string name="label_accept" translatable="false">Accept</string>
+    <string name="label_decline" translatable="false">Decline</string>
 
 </resources>

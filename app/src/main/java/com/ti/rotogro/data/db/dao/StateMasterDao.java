@@ -33,6 +33,6 @@ public interface StateMasterDao {
    void deleteAll();
 
 
-   @Query("SELECT * FROM state where IsActive = :active")
+   @Query("SELECT * FROM state where IsActive = :active ORDER BY StateId")
    List<StateMaster> getAllState( String active );
 }

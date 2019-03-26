@@ -62,13 +62,13 @@ public class TIProductViewPagerAdapter extends PagerAdapter {
       loadGlideImage( aBladeTypes.getBladeImage1(), mImageView );
 
 
-      aCurrentTextView.setText( String.format( "%s", myBladeTypes.get( position ).getBladeTypeName() ) );
+      aCurrentTextView.setText( String.format( "%s", myBladeTypes.get( position ).getBladeTypeName().toLowerCase() ) );
 
       aCurrentPosition.setText( String.format( "%d", position + 1 ) );
 
       aTotalTextView.setText( String.format( "/%d", myBladeTypes.size() ) );
 
-      aProductRate.setText( "₹ " + aBladeTypes.getRate() );
+      // aProductRate.setText( "₹ " + aBladeTypes.getRate() );
 
 
       aProductLayout.setOnClickListener( new View.OnClickListener() {

@@ -68,11 +68,4 @@ public class TIMainPresenter extends BasePresenter<TIMainContract.View> implemen
 
    }
 
-   @Override
-   public void getLanguage() {
-      getView().showProgress();
-
-
-   }
-
 }
