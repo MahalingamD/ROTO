@@ -13,6 +13,9 @@
 
 
 
+
+
+
     <application
         android:name=".app.AppController"
         android:allowBackup="false"
